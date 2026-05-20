@@ -1,5 +1,4 @@
 const http = require('http');
-// Создаем фиктивный сервер, чтобы Render видел открытый порт
 http.createServer((req, res) => {
     res.writeHead(200);
     res.end('Бот работает');
@@ -7,13 +6,13 @@ http.createServer((req, res) => {
 
 const TelegramBot = require('node-telegram-bot-api');
 
-// === ВСТАВЬ СВОЙ ТОКЕН СЮДА ===
 const token = process.env.TELEGRAM_BOT_TOKEN;
-
 const bot = new TelegramBot(token, { polling: true });
+
 bot.on('message', (msg) => {
     console.log('Я получил сообщение от: ' + msg.chat.id);
 });
+
 // Хранилище состояний игроков
 const playersState = {};
 
@@ -23,7 +22,6 @@ const gameConfig = {
         matematik: {
             name: "📞 ОБЪЕКТ №1",
             steps: [
-                // Шаг 1
                 {
                     question: "🎙 *Вопрос из бабла (Раунд 1):* \n«90 уроков?! Ну и ценник у вас, конечно. У конкурентов пакет из 30 занятий стоит в три раза дешевле. Почему я должна переплачивать?»",
                     options: [
@@ -44,7 +42,6 @@ const gameConfig = {
                         }
                     ]
                 },
-                // Шаг 2
                 {
                     question: "🎙 *Вопрос из бабла (Раунд 2):* \n«Ладно, в пересчёте на час выгода понятна. Но выкатить всю сумму за 90 уроков одним платежом прямо сейчас я не могу, у меня нет такого бюджета».",
                     options: [
@@ -65,7 +62,6 @@ const gameConfig = {
                         }
                     ]
                 },
-                // Шаг 3
                 {
                     question: "🎙 *Вопрос из бабла (Раунд 3):* \n«Слушайте, сумма в месяц нормальная. Но сейчас столько лохотронов в интернете: деньги соберёте, а через месяц закроетесь. Где гарантии, что вы не однодневка?»",
                     options: [
@@ -91,7 +87,6 @@ const gameConfig = {
         emotsiya: {
             name: "📞 ОБЪЕКТ №2",
             steps: [
-                // Шаг 1
                 {
                     question: "🎙 *Вопрос из бабла (Раунд 1):* \n«Моему сыну 12 лет, из телефона его не вытащить. На любой английский орёт: \"Отвали, не хочу!\". Ваши 90 уроков станут для нас домашним адом».",
                     options: [
@@ -112,7 +107,6 @@ const gameConfig = {
                         }
                     ]
                 },
-                // Шаг 2
                 {
                     question: "🎙 *Вопрос из бабла (Раунд 2):* \n«Ой, ну в Minecraft он неделю поиграет, а как только эффект новизны пройдёт и начнётся грамматика — он скажет, что это скучная подделка, и бросит».",
                     options: [
@@ -133,7 +127,6 @@ const gameConfig = {
                         }
                     ]
                 },
-                // Шаг 3
                 {
                     question: "🎙 *Вопрос из бабла (Раунд 3):* \n«Ладно, звучит заманчиво. Но мне опять придётся стоять над ним с палкой и проверять, открыл он это ваше приложение или нет? У меня нет на это сил».",
                     options: [
@@ -145,7 +138,7 @@ const gameConfig = {
                         {
                             text: "«Ирина, вам не нужно тратить силы. Вы можете разбить оплату по нашей внутренней рассрочке на маленькие части, и если поймёте, что контроля не хватает — мы просто вернём вам деньги за остаток пакета».",
                             isCorrect: false,
-                            reply: "❌ *ОШИБКА! Разбор ментора:* Мама умоляет избавить её от роли контролёра над сыном, а ты parenting ей оформить внутреннюю рассрочку или возврат. Рассрочка не решает проблему домашних ссор. Провал!"
+                            reply: "❌ *ОШИБКА! Разбор ментора:* Мама умоляет избавить её от роли контролёра над сыном, а ты предлагаешь ей оформить внутреннюю рассрочку или возврат. Рассрочка не решает проблему домашних ссор. Провал!"
                         },
                         {
                             text: "«Вам не нужно контролировать процесс, за вас это делает наша CRM-система. Каждые 12 уроков преподаватель проводит срез знаний по шкале CEFR и выгружает детальную карту навыков ученика с фиксацией всех академических юнитов».",
@@ -159,7 +152,6 @@ const gameConfig = {
         programma: {
             name: "📞 ОБЪЕКТ №3",
             steps: [
-                // Шаг 1
                 {
                     question: "🎙 *Вопрос из бабла (Раунд 1):* \n«Нам через год поступать в колледж в Великобритании. Мне нужны не ваши детские игрушки, а чёткий академический план. Как программа связана с международными стандартами?»",
                     options: [
@@ -180,7 +172,6 @@ const gameConfig = {
                         }
                     ]
                 },
-                // Шаг 2
                 {
                     question: "🎙 *Вопрос из бабла (Раунд 2):* \n«Допустим, спиральная система понятна. Но если это платформа, не получится ли так, что дочка будет просто щёлкать тесты на отлично в телефоне, а на живом уроке будет молчать?»",
                     options: [
@@ -201,7 +192,6 @@ const gameConfig = {
                         }
                     ]
                 },
-                // Шаг 3
                 {
                     question: "🎙 *Вопрос из бабла (Раунд 3):* \n«Хорошо, а как я смогу отслеживать, что она реально усвоила каждый юнит, а не просто прошла тему для галочки?»",
                     options: [
@@ -229,29 +219,79 @@ const gameConfig = {
 
 console.log("Бот ОПЕРАЦИЯ 90 УРОКОВ запущен...");
 
-// Слайд 1: ОБЛОЖКА
+// ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
+
+function sendStep(chatId) {
+    const mamaKey = playersState[chatId].currentMama;
+    const stepIdx = playersState[chatId].currentStep;
+    const mama = gameConfig.mamas[mamaKey];
+    const step = mama.steps[stepIdx];
+
+    // Перемешиваем варианты
+    const shuffledOptions = [...step.options].sort(() => Math.random() - 0.5);
+    playersState[chatId].shuffledOptions = shuffledOptions;
+
+    let messageText = `🔥 *${mama.name}* | Раунд ${stepIdx + 1} из ${mama.steps.length}\n\n${step.question}\n\n*ВАРИАНТЫ ОТВЕТОВ:*\n`;
+    const keyboard = [];
+
+    shuffledOptions.forEach((opt, idx) => {
+        const buttonNumber = idx + 1;
+        messageText += `\n*Вариант №${buttonNumber}:*\n${opt.text}\n`;
+        keyboard.push([{ text: `👉 Выбрать №${buttonNumber}`, callback_data: `answer_${idx}` }]);
+    });
+
+    bot.sendMessage(chatId, messageText, {
+        parse_mode: "Markdown",
+        reply_markup: { inline_keyboard: keyboard }
+    });
+}
+
+function sendFinalVictory(chatId) {
+    bot.sendMessage(chatId,
+        "🎉 *МИССИЯ ВЫПОЛНЕНА!*\n\nТы прошёл все раунды и закрыл сделку. Настоящий профессионал!\n\nХочешь попробовать другой объект?",
+        {
+            parse_mode: "Markdown",
+            reply_markup: {
+                inline_keyboard: [
+                    [{ text: "🎯 Выбрать другой объект", callback_data: "choose_object" }],
+                    [{ text: "🔄 Начать заново", callback_data: "choose_object" }]
+                ]
+            }
+        }
+    );
+}
+
+// ===== СТАРТ =====
+
 bot.onText(/\/start/, (msg) => {
     const chatId = msg.chat.id;
     playersState[chatId] = { currentMama: null, currentStep: 0, shuffledOptions: null };
 
-    bot.sendMessage(chatId, "🔥 *ОПЕРАЦИЯ «90 УРОКОВ»* 🔥\n\n*Курс выживания для админа.* \nНайди подход к маме или лид уйдет в закат! 🌅", {
-        parse_mode: "Markdown",
-        reply_markup: {
-            inline_keyboard: [[{ text: "🎮 ВСТУПИТЬ В ИГРУ", callback_data: "choose_object" }]]
+    bot.sendMessage(chatId,
+        "🔥 *ОПЕРАЦИЯ «90 УРОКОВ»* 🔥\n\n*Курс выживания для админа.* \nНайди подход к маме или лид уйдет в закат! 🌅",
+        {
+            parse_mode: "Markdown",
+            reply_markup: {
+                inline_keyboard: [[{ text: "🎮 ВСТУПИТЬ В ИГРУ", callback_data: "choose_object" }]]
+            }
         }
-    });
+    );
 });
 
-// ОБРАБОТКА ИГРЫ
+// ===== ОБРАБОТКА КНОПОК =====
+
 bot.on('callback_query', (query) => {
     const chatId = query.message.chat.id;
     const data = query.data;
+
+    // Отвечаем на callback, чтобы убрать "часики" на кнопке
+    bot.answerCallbackQuery(query.id);
 
     if (!playersState[chatId]) {
         playersState[chatId] = { currentMama: null, currentStep: 0, shuffledOptions: null };
     }
 
-    // Слайд 2: ВЫБОР ОБЪЕКТА
+    // Выбор объекта
     if (data === "choose_object") {
         playersState[chatId].currentMama = null;
         playersState[chatId].currentStep = 0;
@@ -268,62 +308,57 @@ bot.on('callback_query', (query) => {
         return;
     }
 
-    // Старт ветки мамы
+    // Старт ветки
     if (data.startsWith("mama_")) {
-        const mamaKey = data.split("_")[1];
+        const mamaKey = data.replace("mama_", "");
         playersState[chatId].currentMama = mamaKey;
         playersState[chatId].currentStep = 0;
         playersState[chatId].shuffledOptions = null;
-
         sendStep(chatId);
         return;
     }
 
     // Проверка ответа
     if (data.startsWith("answer_")) {
-        const selectedIdx = parseInt(data.split("_")[1]);
-        const mamaKey = playersState[chatId].currentMama;
-        
-        // Берем именно тот массив, который мы перемешали и показали пользователю
-        const option = playersState[chatId].shuffledOptions[selectedIdx];
+        const selectedIdx = parseInt(data.replace("answer_", ""));
+        const state = playersState[chatId];
+        const mamaKey = state.currentMama;
+
+        if (!mamaKey || !state.shuffledOptions) {
+            bot.sendMessage(chatId, "⚠️ Что-то пошло не так. Начни заново: /start");
+            return;
+        }
+
+        const option = state.shuffledOptions[selectedIdx];
+        const mama = gameConfig.mamas[mamaKey];
+        const isLastStep = state.currentStep >= mama.steps.length - 1;
 
         if (option.isCorrect) {
-            // ... (дальше твой код обработки победы) ...
-            playersState[chatId].currentStep++;
-            // ...
+            if (isLastStep) {
+                // Финальный правильный ответ
+                bot.sendMessage(chatId, option.reply, { parse_mode: "Markdown" });
+                setTimeout(() => sendFinalVictory(chatId), 1500);
+            } else {
+                // Правильный ответ, переходим к следующему раунду
+                state.currentStep++;
+                state.shuffledOptions = null;
+                bot.sendMessage(chatId, option.reply, {
+                    parse_mode: "Markdown"
+                }).then(() => {
+                    setTimeout(() => sendStep(chatId), 1500);
+                });
+            }
         } else {
-            // ... (код обработки ошибки) ...
+            // Неправильный ответ — показываем разбор и кнопку повтора
+            bot.sendMessage(chatId, option.reply, {
+                parse_mode: "Markdown",
+                reply_markup: {
+                    inline_keyboard: [
+                        [{ text: "🔄 Попробовать снова", callback_data: `mama_${mamaKey}` }],
+                        [{ text: "🎯 Выбрать другой объект", callback_data: "choose_object" }]
+                    ]
+                }
+            });
         }
     }
-
-// Функция отправки текущего шага с красивым выводом вариантов
-function sendStep(chatId) {
-    const mamaKey = playersState[chatId].currentMama;
-    const stepIdx = playersState[chatId].currentStep;
-    const mama = gameConfig.mamas[mamaKey];
-    const step = mama.steps[stepIdx];
-
-    // Перемешиваем варианты каждый раз заново
-    const shuffledOptions = [...step.options].sort(() => Math.random() - 0.5);
-    
-    // Сохраняем перемешанные варианты в состояние, чтобы потом сравнить
-    playersState[chatId].shuffledOptions = shuffledOptions;
-
-    let messageText = `🔥 *${mama.name}*\n\n${step.question}\n\n*ВАРИАНТЫ ОТВЕТОВ:*\n`;
-    const keyboard = [];
-    
-    shuffledOptions.forEach((opt, idx) => {
-        const buttonNumber = idx + 1;
-        messageText += `\n*Вариант №${buttonNumber}:*\n${opt.text}\n`;
-        // callback_data содержит индекс в перемешанном массиве
-        keyboard.push([{ text: `👉 Выбрать №${buttonNumber}`, callback_data: `answer_${idx}` }]);
-    });
-
-    bot.sendMessage(chatId, messageText, {
-        parse_mode: "Markdown",
-        reply_markup: { inline_keyboard: keyboard }
-    });
-}
-}
-}
-};
+});
