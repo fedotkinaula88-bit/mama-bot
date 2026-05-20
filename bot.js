@@ -1,3 +1,10 @@
+const http = require('http');
+// Создаем фиктивный сервер, чтобы Render видел открытый порт
+http.createServer((req, res) => {
+    res.writeHead(200);
+    res.end('Бот работает');
+}).listen(process.env.PORT || 10000);
+
 const TelegramBot = require('node-telegram-bot-api');
 
 // === ВСТАВЬ СВОЙ ТОКЕН СЮДА ===
