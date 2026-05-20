@@ -324,3 +324,6 @@ function sendStep(chatId) {
         reply_markup: { inline_keyboard: keyboard }
     });
 }
+}
+}
+};
